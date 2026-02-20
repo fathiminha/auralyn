@@ -22,14 +22,15 @@ const Intro = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1 }}
-          className="relative h-80 rounded-3xl overflow-hidden mb-20 shadow-2xl"
+          className="relative w-full h-80 rounded-3xl overflow-hidden mb-20 shadow-2xl"
         >
           <img
             src={aboutImg}
             alt="Wellness"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-deepplum/70 to-transparent flex items-center px-12">
+          <div className="absolute inset-0 bg-gradient-to-r from-deepplum/80 via-deepplum/40 to-transparent" />
+          <div className="absolute inset-0 flex items-center px-12">
             <div>
               <motion.p
                 initial={{ opacity: 0, x: -30 }}
@@ -43,7 +44,7 @@ const Intro = () => {
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.5 }}
-                className="font-serif text-4xl md:text-5xl text-white font-bold max-w-lg leading-tight"
+                className="font-serif text-3xl md:text-5xl text-white font-bold max-w-lg leading-tight"
               >
                 Wellness is not a destination, it's a way of life
               </motion.h2>
@@ -81,7 +82,7 @@ const Intro = () => {
             <img
               src={about2Img}
               alt="Meditation"
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-plum/20" />
           </motion.div>

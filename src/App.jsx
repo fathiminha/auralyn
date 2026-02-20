@@ -7,19 +7,18 @@ import Journal from "./components/Journal";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-function App(){
-  return(
-    <main>
+function App() {
+  return (
+    <main className="overflow-x-hidden">
       <Navbar />
       <Hero />
       <Intro />
-      <ServiceCard />
       <Services />
       <Journal />
       <Contact />
       <Footer />
     </main>
-  )
+  );
 }
 
 export default App;
