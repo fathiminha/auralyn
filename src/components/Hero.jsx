@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-scroll";
 import { useRef } from "react";
+import heroBg from "../assets/images/hero.jpg";
 
 const Hero = () => {
   const ref = useRef(null);
@@ -15,12 +16,9 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Parallax Background Image */}
-      <motion.div
-        style={{ y }}
-        className="absolute inset-0 z-0"
-      >
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&auto=format&fit=crop"
+          src={heroBg}
           alt="Hero Background"
           className="w-full h-full object-cover"
         />
@@ -39,6 +37,12 @@ const Hero = () => {
         transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
         className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-15 z-10"
         style={{ background: "radial-gradient(circle, #C9808A, transparent)" }}
+      />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+        className="absolute top-1/3 right-1/4 w-48 h-48 rounded-full opacity-10 z-10"
+        style={{ background: "radial-gradient(circle, #E6D9F2, transparent)" }}
       />
 
       {/* Content */}
@@ -81,7 +85,10 @@ const Hero = () => {
         >
           <Link to="services" smooth={true} duration={800} offset={-80}>
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(255,255,255,0.3)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 40px rgba(255,255,255,0.3)",
+              }}
               whileTap={{ scale: 0.95 }}
               className="bg-white text-plum px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 cursor-pointer w-full sm:w-auto"
             >
@@ -90,7 +97,10 @@ const Hero = () => {
           </Link>
           <Link to="about" smooth={true} duration={800} offset={-80}>
             <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "rgba(255,255,255,0.15)",
+              }}
               whileTap={{ scale: 0.95 }}
               className="border-2 border-white/60 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 cursor-pointer w-full sm:w-auto"
             >
@@ -106,7 +116,9 @@ const Hero = () => {
           transition={{ delay: 1.5 }}
           className="mt-20 flex flex-col items-center gap-2"
         >
-          <p className="text-white/40 text-xs tracking-widest uppercase">Scroll to explore</p>
+          <p className="text-white/40 text-xs tracking-widest uppercase">
+            Scroll to explore
+          </p>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
