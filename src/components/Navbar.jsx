@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="font-serif text-2xl font-bold text-plum cursor-pointer"
+          className="font-serif text-2xl font-bold text-white cursor-pointer"
         >
           Auralyn
         </motion.div>
@@ -47,25 +47,32 @@ const Navbar = () => {
                 smooth={true}
                 duration={800}
                 offset={-80}
-                className="relative text-deepplum font-medium cursor-pointer group transition-colors hover:text-plum"
+                className="relative text-white/80 font-medium cursor-pointer group transition-colors hover:text-white"
               >
                 {link}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-plum transition-all duration-300 group-hover:w-full rounded-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full rounded-full" />
               </Link>
             </motion.li>
           ))}
         </ul>
 
         <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(107,63,160,0.4)" }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 20px rgba(255,255,255,0.3)",
+          }}
           whileTap={{ scale: 0.95 }}
-          className="hidden md:block bg-plum text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-deepplum transition-colors duration-300"
+          className={`hidden md:block px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+            scrolled
+              ? "bg-plum text-white hover:bg-deepplum"
+              : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
+          }`}
         >
           Begin Journey
         </motion.button>
 
         <button
-          className="md:hidden text-plum text-2xl"
+          className="md:hidden text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
@@ -79,7 +86,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4"
+            className="md:hidden bg-deepplum/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4"
           >
             {navLinks.map((link) => (
               <Link
@@ -88,7 +95,7 @@ const Navbar = () => {
                 smooth={true}
                 duration={800}
                 offset={-80}
-                className="text-deepplum font-medium cursor-pointer hover:text-plum transition-colors py-2 border-b border-lavender/30"
+                className="text-white/80 font-medium cursor-pointer hover:text-white transition-colors py-2 border-b border-white/10"
                 onClick={() => setMenuOpen(false)}
               >
                 {link}
