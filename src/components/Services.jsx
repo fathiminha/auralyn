@@ -48,6 +48,8 @@ const Services = () => {
   return (
     <section id="services" className="py-32 px-6 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto">
+
+        {/* Header */}
         <div ref={ref} className="text-center mb-24">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -58,16 +60,32 @@ const Services = () => {
             What We Offer
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-serif text-5xl md:text-7xl text-deepplum leading-tight"
           >
             Your Path to <br />
-            <span className="text-plum italic">Radiance</span>
+            <motion.span
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-plum italic"
+            >
+              Radiance
+            </motion.span>
           </motion.h2>
+
+          {/* Animated underline */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="w-24 h-1 bg-gradient-to-r from-plum to-rose mx-auto mt-6 rounded-full"
+          />
         </div>
 
+        {/* Cards */}
         {services.map((service, index) => (
           <ServiceCard key={service.title} {...service} index={index} />
         ))}
