@@ -5,6 +5,7 @@ import ServiceCard from "./components/ServiceCard";
 import Services from "./components/Services";
 import Journal from "./components/Journal";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 function App(){
   return(
@@ -16,6 +17,7 @@ function App(){
       <Services />
       <Journal />
       <Contact />
+      <Footer />
     </main>
   )
 }
