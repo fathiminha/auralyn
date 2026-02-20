@@ -156,7 +156,7 @@ const Hero = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-serif font-bold text-white leading-none"
-            style={{ fontSize: "clamp(5rem, 15vw, 14rem)" }}
+            style={{ fontSize: "clamp(8rem, 20vw, 20rem)" }}
           >
             Auralyn
           </motion.h1>
