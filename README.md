@@ -8,8 +8,8 @@
 
 ## ✨ Live Demo
 
-🔗 **[View Live Site](https://your-netlify-url.netlify.app)**  
-📁 **[GitHub Repository](https://github.com/your-username/auralyn)**
+🔗 **[View Live Site](https://auralyn-wellness.netlify.app/)**  
+📁 **[GitHub Repository](https://github.com/fathiminha/auralyn)**
 
 ---
 
