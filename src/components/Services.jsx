@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import mindfulImg from "../assets/images/mindful.jpg";
 import movementImg from "../assets/images/movement.jpg";
@@ -6,150 +6,208 @@ import nourishImg from "../assets/images/nourish.jpg";
 import glowImg from "../assets/images/glow.jpg";
 
 const services = [
-  { number: "01", title: "Mindful Living", description: "Discover the art of living in the present moment through meditation, breathwork, and daily rituals that quiet the noise.", image: mindfulImg, color: "#6B3FA0", tag: "Mindfulness" },
-  { number: "02", title: "Move With Purpose", description: "Movement is medicine. From gentle yoga flows to energizing sessions, build a body that feels as good as it looks.", image: movementImg, color: "#C9808A", tag: "Movement" },
-  { number: "03", title: "Nourish Your Soul", description: "True wellness starts from within. Holistic nutrition guides, plant-based recipes, and personalized meal plans.", image: nourishImg, color: "#8B5CF6", tag: "Nutrition" },
-  { number: "04", title: "Glow Rituals", description: "Elevate your self-care with luxurious glow rituals. From skincare ceremonies to evening wind-down routines.", image: glowImg, color: "#E879A0", tag: "Self Care" },
+  { number: "01", title: "Mindful Living", description: "Ancient breathwork and meditation practices distilled into daily rituals that quiet the mind and reveal your true essence.", image: mindfulImg, accent: "#C9A84C", tag: "Mindfulness" },
+  { number: "02", title: "Move With Purpose", description: "Intentional movement rooted in botanical tradition. Build a body that flows as beautifully as nature intended.", image: movementImg, accent: "#4A7C32", tag: "Movement" },
+  { number: "03", title: "Nourish Your Soul", description: "Plant-based wisdom for modern living. Every meal a ceremony, every ingredient a gift from the earth.", image: nourishImg, accent: "#8B6914", tag: "Nutrition" },
+  { number: "04", title: "Glow Rituals", description: "Luxurious self-care ceremonies that honour your body as sacred. The art of the evening ritual, perfected.", image: glowImg, accent: "#2D5016", tag: "Self Care" },
 ];
 
-const ServiceRow = ({ service, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const BentoCard = ({ service, delay, className }) => {
   const [hovered, setHovered] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.div
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group border-b border-white/10 py-10 grid grid-cols-12 gap-8 items-center cursor-pointer relative overflow-hidden"
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={`relative overflow-hidden cursor-pointer group ${className}`}
     >
-      {/* Hover background image */}
+      {/* Image */}
       <motion.div
-        animate={{ opacity: hovered ? 0.15 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute inset-0 z-0"
+        animate={{ scale: hovered ? 1.07 : 1 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="absolute inset-0"
       >
         <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
       </motion.div>
 
-      {/* Number */}
-      <div className="col-span-1 relative z-10">
-        <motion.p
-          animate={{ color: hovered ? service.color : "rgba(255,255,255,0.2)" }}
-          className="text-xs font-mono"
-        >
-          {service.number}
-        </motion.p>
-      </div>
+      {/* Overlay */}
+      <motion.div
+        animate={{ opacity: hovered ? 0.95 : 0.7 }}
+        transition={{ duration: 0.6 }}
+        className="absolute inset-0 bg-gradient-to-t from-forest via-forest/60 to-transparent"
+      />
 
-      {/* Tag */}
-      <div className="col-span-2 relative z-10 hidden md:block">
+      {/* Gold accent line */}
+      <motion.div
+        animate={{ scaleX: hovered ? 1 : 0 }}
+        transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute top-0 left-0 right-0 h-px origin-left"
+        style={{ backgroundColor: service.accent }}
+      />
+
+      {/* Top meta */}
+      <div className="absolute top-5 left-5 right-5 flex justify-between z-10">
+        <span className="font-mono text-[9px] text-champagne/30 tracking-widest">
+          {service.number}
+        </span>
         <motion.span
-          animate={{ opacity: hovered ? 1 : 0.3 }}
-          className="text-xs tracking-widest uppercase"
-          style={{ color: service.color }}
+          animate={{ opacity: hovered ? 1 : 0.5 }}
+          className="font-mono text-[9px] tracking-widest uppercase px-3 py-1 border"
+          style={{ color: service.accent, borderColor: `${service.accent}40` }}
         >
           {service.tag}
         </motion.span>
       </div>
 
-      {/* Title */}
-      <div className="col-span-6 md:col-span-5 relative z-10 overflow-hidden">
+      {/* Bottom content */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
         <motion.h3
-          animate={{ x: hovered ? 16 : 0 }}
-          transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-          className="font-serif text-3xl md:text-5xl font-bold text-white"
+          animate={{ y: hovered ? -6 : 0 }}
+          transition={{ duration: 0.4 }}
+          className="font-display text-2xl md:text-3xl font-light text-champagne leading-tight mb-2"
         >
           {service.title}
         </motion.h3>
-      </div>
 
-      {/* Description - appears on hover */}
-      <motion.div
-        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : 20 }}
-        transition={{ duration: 0.4 }}
-        className="col-span-4 hidden lg:block relative z-10"
-      >
-        <p className="text-white/50 text-sm leading-relaxed">{service.description}</p>
-      </motion.div>
-
-      {/* Arrow */}
-      <div className="col-span-5 md:col-span-2 flex justify-end relative z-10">
-        <motion.div
-          animate={{ x: hovered ? 0 : -10, opacity: hovered ? 1 : 0.3 }}
+        <motion.p
+          animate={{ opacity: hovered ? 1 : 0, height: hovered ? "auto" : 0 }}
           transition={{ duration: 0.4 }}
-          className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center"
-          style={{ borderColor: hovered ? service.color : "rgba(255,255,255,0.2)" }}
+          className="font-body text-sm text-champagne/60 leading-relaxed mb-4 overflow-hidden"
         >
-          <span className="text-white text-sm">→</span>
+          {service.description}
+        </motion.p>
+
+        <motion.div
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase"
+          style={{ color: service.accent }}
+        >
+          Explore Ritual
+          <motion.span
+            animate={{ x: hovered ? [0, 6, 0] : 0 }}
+            transition={{ repeat: hovered ? Infinity : 0, duration: 1.2 }}
+          >
+            →
+          </motion.span>
         </motion.div>
       </div>
 
-      {/* Animated line */}
+      {/* Corner decoration */}
       <motion.div
-        className="absolute bottom-0 left-0 h-px origin-left"
-        style={{ backgroundColor: service.color }}
-        animate={{ scaleX: hovered ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-      />
+        animate={{ opacity: hovered ? 1 : 0 }}
+        className="absolute bottom-5 right-5 z-10"
+      >
+        <div
+          className="w-7 h-7 border flex items-center justify-center"
+          style={{ borderColor: `${service.accent}60` }}
+        >
+          <span className="text-xs" style={{ color: service.accent }}>↗</span>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
 
 const Services = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="services" className="py-40 px-8 md:px-16 bg-[#080510] overflow-hidden">
+    <section id="services" className="py-40 px-8 md:px-20 bg-pine overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div ref={ref} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+        <div ref={ref} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-10">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              className="flex items-center gap-4 mb-6"
+              className="flex items-center gap-4 mb-8"
             >
-              <div className="w-12 h-px bg-white/20" />
-              <p className="text-white/30 text-xs tracking-[0.5em] uppercase">What We Offer</p>
+              <div className="w-12 h-px bg-gold/30" />
+              <p className="font-mono text-[10px] text-gold/40 tracking-[0.5em] uppercase">The Rituals</p>
             </motion.div>
 
-            {"Your Path to Radiance".split(" ").map((word, i) => (
+            {"Your Path to".split(" ").map((word, i) => (
               <div key={i} className="overflow-hidden inline-block mr-5">
                 <motion.span
-                  initial={{ y: "100%" }}
+                  initial={{ y: "105%" }}
                   animate={isInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
-                  className={`font-serif text-5xl md:text-7xl font-bold inline-block ${word === "Radiance" ? "text-plum italic" : "text-white"}`}
+                  className="font-display text-5xl md:text-7xl font-light inline-block text-champagne"
                 >
                   {word}
                 </motion.span>
               </div>
             ))}
+            <br />
+            <div className="overflow-hidden inline-block">
+              <motion.span
+                initial={{ y: "105%" }}
+                animate={isInView ? { y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
+                className="font-display text-5xl md:text-7xl font-light italic text-gold inline-block"
+              >
+                Radiance
+              </motion.span>
+            </div>
           </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.6 }}
-            className="text-white/30 text-sm max-w-xs leading-relaxed font-light"
+            transition={{ delay: 0.5 }}
+            className="font-body text-sm text-champagne/25 max-w-xs leading-relaxed font-light"
           >
-            Four pillars of wellness, each crafted to elevate your everyday experience.
+            Four sacred pillars of wellness, rooted in botanical tradition and elevated for modern living.
           </motion.p>
         </div>
 
-        {/* Service Rows */}
-        <div className="border-t border-white/10">
-          {services.map((service, index) => (
-            <ServiceRow key={service.title} service={service} index={index} />
-          ))}
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+          {/* Large card — left */}
+          <BentoCard
+            service={services[0]}
+            delay={0.1}
+            className="md:col-span-7 h-[520px]"
+          />
+
+          {/* Right column stacked */}
+          <div className="md:col-span-5 grid grid-rows-2 gap-3 h-[520px]">
+            <BentoCard service={services[1]} delay={0.2} className="h-full" />
+            <BentoCard service={services[2]} delay={0.3} className="h-full" />
+          </div>
+
+          {/* Wide bottom card */}
+          <BentoCard
+            service={services[3]}
+            delay={0.4}
+            className="md:col-span-12 h-72"
+          />
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.7 }}
+          className="flex justify-center mt-14"
+        >
+          <motion.button
+            whileHover={{ scale: 1.04, backgroundColor: "#C9A84C", color: "#0D1F0F" }}
+            whileTap={{ scale: 0.96 }}
+            className="border border-gold/25 text-champagne/50 font-mono text-[10px] tracking-[0.4em] uppercase px-12 py-4 hover:border-gold transition-all duration-400"
+          >
+            View All Rituals →
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );

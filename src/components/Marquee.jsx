@@ -1,19 +1,32 @@
 import { motion } from "framer-motion";
 
-const items = ["Mindful Living", "✦", "Inner Glow", "✦", "Wellness", "✦", "Radiance", "✦", "Self Care", "✦", "Movement", "✦", "Nourishment", "✦", "Balance", "✦"];
+const items = [
+  "Mindful Living", "✦", "Inner Glow", "✦", "Wellness",
+  "✦", "Radiance", "✦", "Self Care", "✦", "Movement",
+  "✦", "Nourishment", "✦", "Balance", "✦",
+];
 
 const Marquee = ({ reverse = false, dark = false }) => {
   return (
-    <div className={`py-5 overflow-hidden flex border-y ${dark ? "bg-white/5 border-white/10" : "bg-plum/80 border-plum"}`}>
+    <div className={`py-4 overflow-hidden flex border-y ${
+      dark
+        ? "bg-lavender/10 border-lavender/15"
+        : "bg-plum/90 border-plum"
+    }`}>
       {[0, 1].map((n) => (
         <motion.div
           key={n}
-          animate={{ x: reverse ? ["−100%", "0%"] : ["0%", "−100%"] }}
-          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-          className="flex gap-10 whitespace-nowrap min-w-full pr-10"
+          animate={{ x: reverse ? ["-100%", "0%"] : ["0%", "-100%"] }}
+          transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+          className="flex gap-12 whitespace-nowrap min-w-full pr-12"
         >
           {[...items, ...items].map((item, i) => (
-            <span key={i} className="text-white/70 text-xs font-light tracking-[0.4em] uppercase">
+            <span
+              key={i}
+              className={`font-mono text-[10px] tracking-[0.5em] uppercase ${
+                dark ? "text-plum/40" : "text-lavender/60"
+              }`}
+            >
               {item}
             </span>
           ))}

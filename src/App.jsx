@@ -16,6 +16,7 @@ function App() {
 
   return (
     <>
+      <div className="noise" />
       <Cursor />
       <Preloader onComplete={() => setLoaded(true)} />
       <AnimatePresence>
@@ -23,8 +24,8 @@ function App() {
           <motion.main
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="overflow-x-hidden bg-[#080510]"
+            transition={{ duration: 0.8 }}
+            className="overflow-x-hidden bg-forest"
           >
             <Navbar />
             <Hero />

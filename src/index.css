@@ -1,37 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@200;300;400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   cursor: none;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #080510;
-  font-family: 'Inter', sans-serif;
+  background-color: #FDF6F0;
+  font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
-  color: #fff;
+  color: #3B1F5E;
 }
 
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #080510; }
-::-webkit-scrollbar-thumb { background: #6B3FA0; border-radius: 10px; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: #FDF6F0; }
+::-webkit-scrollbar-thumb { background: #6B3FA0; }
 
-.clip-text {
-  overflow: hidden;
-  display: block;
+::selection {
+  background: #6B3FA0;
+  color: #FDF6F0;
 }
 
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
 }

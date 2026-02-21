@@ -4,18 +4,22 @@ import { useEffect, useState } from "react";
 const Preloader = ({ onComplete }) => {
   const [count, setCount] = useState(0);
   const [done, setDone] = useState(false);
+  const letters = "AURALYN".split("");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => { setDone(true); setTimeout(onComplete, 800); }, 300);
+          setTimeout(() => {
+            setDone(true);
+            setTimeout(onComplete, 900);
+          }, 400);
           return 100;
         }
-        return prev + Math.floor(Math.random() * 8) + 2;
+        return Math.min(prev + Math.floor(Math.random() * 6) + 2, 100);
       });
-    }, 60);
+    }, 55);
     return () => clearInterval(interval);
   }, []);
 
@@ -23,44 +27,67 @@ const Preloader = ({ onComplete }) => {
     <AnimatePresence>
       {!done && (
         <motion.div
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[99999] bg-deepplum flex flex-col items-center justify-center"
+          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[99999] bg-deepplum flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Logo */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-serif text-6xl md:text-8xl font-bold text-white mb-12"
-          >
-            Auralyn
-          </motion.h1>
+          {/* Decorative circles */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.06 }}
+            transition={{ duration: 1.5 }}
+            className="absolute w-[600px] h-[600px] rounded-full border border-lavender"
+          />
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.04 }}
+            transition={{ duration: 1.5, delay: 0.2 }}
+            className="absolute w-[850px] h-[850px] rounded-full border border-lavender"
+          />
 
-          {/* Progress Bar */}
-          <div className="w-48 h-px bg-white/10 relative overflow-hidden">
+          {/* Staggered letters */}
+          <div className="flex gap-2 mb-12">
+            {letters.map((letter, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: i * 0.08,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+                className="font-display text-7xl md:text-9xl font-light text-cream tracking-widest"
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="w-64 h-px bg-lavender/10 relative overflow-hidden">
             <motion.div
-              className="absolute top-0 left-0 h-full bg-white"
+              className="absolute inset-y-0 left-0 bg-lavender"
               style={{ width: `${count}%` }}
-              transition={{ ease: "linear" }}
             />
           </div>
 
-          {/* Counter */}
-          <motion.p
-            className="text-white/40 text-xs tracking-widest mt-4 font-light"
-          >
-            {String(Math.min(count, 100)).padStart(3, "0")}
-          </motion.p>
-
-          {/* Bottom text */}
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.5 }}
-            className="absolute bottom-8 text-white text-xs tracking-[0.4em] uppercase"
+            animate={{ opacity: 0.4 }}
+            transition={{ delay: 0.6 }}
+            className="font-mono text-xs text-lavender mt-4 tracking-[0.5em]"
           >
-            Discover Your Glow
+            {String(count).padStart(3, "0")}
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.2 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-10 font-body text-xs text-cream tracking-[0.6em] uppercase"
+          >
+            Discover Your Glow — Est. 2025
           </motion.p>
         </motion.div>
       )}
