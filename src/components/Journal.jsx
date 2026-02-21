@@ -6,8 +6,8 @@ import journal3 from "../assets/images/journal3.jpg";
 
 const posts = [
   { image: journal1, tag: "Mindfulness", number: "01", title: "5 Morning Rituals That Will Transform Your Day", excerpt: "Start your mornings with intention and create ripples of calm that last all day.", color: "#6B3FA0", date: "Feb 12, 2025" },
-  { image: journal2, tag: "Nutrition", number: "02", title: "The Power of Plant-Based Eating for Inner Glow", excerpt: "Ancient plant wisdom for your modern body. Discover how food becomes your most powerful ritual.", color: "#C9808A", date: "Feb 5, 2025" },
-  { image: journal3, tag: "Movement", number: "03", title: "Why Slow Yoga Is the New High-Intensity Workout", excerpt: "Intentional, sacred movement. Why slowing down is the most radical act of self-care.", color: "#9B6BB5", date: "Jan 28, 2025" },
+  { image: journal2, tag: "Nutrition", number: "02", title: "The Power of Plant-Based Eating for Inner Glow", excerpt: "Discover how plant-based food becomes your most powerful wellness ritual.", color: "#C9808A", date: "Feb 5, 2025" },
+  { image: journal3, tag: "Movement", number: "03", title: "Why Slow Yoga Is the New High-Intensity Workout", excerpt: "Why slowing down is the most radical and transformative act of self-care.", color: "#9B6BB5", date: "Jan 28, 2025" },
 ];
 
 const JournalCard = ({ post, i, isInView }) => {
@@ -32,7 +32,7 @@ const JournalCard = ({ post, i, isInView }) => {
       initial={{ opacity: 0, y: 80 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.9, delay: 0.2 + i * 0.15 }}
-      className="group cursor-pointer bg-cream border border-lavender/20 hover:border-plum/30 transition-all duration-500"
+      className="group cursor-pointer bg-cream border border-lavender/30 hover:border-plum/40 transition-all duration-500 shadow-sm hover:shadow-lg"
     >
       <div className="h-64 overflow-hidden relative">
         <img
@@ -48,30 +48,27 @@ const JournalCard = ({ post, i, isInView }) => {
           style={{ borderColor: post.color }}
         />
         <div className="absolute top-4 left-4">
-          <span className="font-mono text-[9px] text-lavender/30 tracking-widest">{post.number}</span>
+          <span className="font-sans text-[9px] text-lavender/40 tracking-widest">{post.number}</span>
         </div>
       </div>
 
       <div className="p-7">
         <div className="flex justify-between items-center mb-4">
-          <span className="font-mono text-[9px] tracking-[0.4em] uppercase" style={{ color: post.color }}>
+          <span className="font-sans text-[9px] tracking-[0.4em] uppercase font-medium" style={{ color: post.color }}>
             {post.tag}
           </span>
-          <span className="font-mono text-[9px] text-deepplum/20 tracking-wider">{post.date}</span>
+          <span className="font-sans text-[9px] text-deepplum/25 tracking-wider">{post.date}</span>
         </div>
-
-        <h3 className="font-display text-xl font-light text-deepplum mb-3 leading-snug group-hover:text-plum transition-colors duration-300">
+        <h3 className="font-serif text-xl font-bold text-deepplum mb-3 leading-snug group-hover:text-plum transition-colors duration-300">
           {post.title}
         </h3>
-
-        <p className="font-body text-sm text-deepplum/35 leading-relaxed mb-6 font-light">
+        <p className="font-sans text-sm text-deepplum/35 leading-relaxed mb-6 font-light">
           {post.excerpt}
         </p>
-
         <motion.button
           whileHover={{ x: 8 }}
-          className="font-mono text-[9px] tracking-[0.4em] uppercase flex items-center gap-3 transition-colors duration-300"
-          style={{ color: `${post.color}80` }}
+          className="font-sans text-[9px] tracking-[0.4em] uppercase flex items-center gap-3 transition-colors duration-300"
+          style={{ color: `${post.color}90` }}
         >
           Read More
           <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>→</motion.span>
@@ -86,7 +83,7 @@ const Journal = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="journal" className="py-40 px-8 md:px-20 bg-cream overflow-hidden">
+    <section className="py-40 px-8 md:px-20 bg-cream overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div>
@@ -96,7 +93,7 @@ const Journal = () => {
               className="flex items-center gap-4 mb-8"
             >
               <div className="w-12 h-px bg-plum/30" />
-              <p className="font-mono text-[10px] text-plum/40 tracking-[0.5em] uppercase">The Journal</p>
+              <p className="font-sans text-[10px] text-plum/40 tracking-[0.5em] uppercase">The Auralyn Journal</p>
             </motion.div>
 
             {"Stories & Wisdom".split(" ").map((word, i) => (
@@ -105,7 +102,7 @@ const Journal = () => {
                   initial={{ y: "105%" }}
                   animate={isInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
-                  className={`font-display text-5xl md:text-7xl font-light inline-block ${
+                  className={`font-serif text-5xl md:text-7xl font-bold inline-block ${
                     word === "Wisdom" ? "italic text-plum" : "text-deepplum"
                   }`}
                 >
@@ -119,7 +116,7 @@ const Journal = () => {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             whileHover={{ x: 8, color: "#6B3FA0" }}
-            className="font-mono text-[10px] tracking-[0.4em] uppercase text-deepplum/25 flex items-center gap-3 transition-colors duration-300 whitespace-nowrap"
+            className="font-sans text-[10px] tracking-[0.4em] uppercase text-deepplum/25 flex items-center gap-3 transition-colors duration-300 whitespace-nowrap"
           >
             All Articles →
           </motion.button>

@@ -6,10 +6,10 @@ import nourishImg from "../assets/images/nourish.jpg";
 import glowImg from "../assets/images/glow.jpg";
 
 const services = [
-  { number: "01", title: "Mindful Living", description: "Ancient breathwork and meditation practices distilled into daily rituals that quiet the mind and reveal your true essence.", image: mindfulImg, accent: "#C9A84C", tag: "Mindfulness" },
-  { number: "02", title: "Move With Purpose", description: "Intentional movement rooted in botanical tradition. Build a body that flows as beautifully as nature intended.", image: movementImg, accent: "#4A7C32", tag: "Movement" },
-  { number: "03", title: "Nourish Your Soul", description: "Plant-based wisdom for modern living. Every meal a ceremony, every ingredient a gift from the earth.", image: nourishImg, accent: "#8B6914", tag: "Nutrition" },
-  { number: "04", title: "Glow Rituals", description: "Luxurious self-care ceremonies that honour your body as sacred. The art of the evening ritual, perfected.", image: glowImg, accent: "#2D5016", tag: "Self Care" },
+  { number: "01", title: "Mindful Living", description: "Ancient breathwork and meditation practices distilled into daily rituals that quiet the mind and reveal your true essence.", image: mindfulImg, accent: "#6B3FA0", tag: "Mindfulness" },
+  { number: "02", title: "Move With Purpose", description: "Intentional movement rooted in wellness tradition. Build a body that flows as beautifully as you feel inside.", image: movementImg, accent: "#C9808A", tag: "Movement" },
+  { number: "03", title: "Nourish Your Soul", description: "Plant-based wisdom for modern living. Every meal a ceremony, every ingredient chosen with love and intention.", image: nourishImg, accent: "#9B6BB5", tag: "Nutrition" },
+  { number: "04", title: "Glow Rituals", description: "Luxurious self-care ceremonies that honour your body as sacred. The art of the evening ritual, perfected.", image: glowImg, accent: "#C9808A", tag: "Self Care" },
 ];
 
 const BentoCard = ({ service, delay, className }) => {
@@ -38,12 +38,12 @@ const BentoCard = ({ service, delay, className }) => {
 
       {/* Overlay */}
       <motion.div
-        animate={{ opacity: hovered ? 0.95 : 0.7 }}
+        animate={{ opacity: hovered ? 0.93 : 0.65 }}
         transition={{ duration: 0.6 }}
-        className="absolute inset-0 bg-gradient-to-t from-forest via-forest/60 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-deepplum via-deepplum/60 to-transparent"
       />
 
-      {/* Gold accent line */}
+      {/* Top accent line */}
       <motion.div
         animate={{ scaleX: hovered ? 1 : 0 }}
         transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
@@ -53,12 +53,10 @@ const BentoCard = ({ service, delay, className }) => {
 
       {/* Top meta */}
       <div className="absolute top-5 left-5 right-5 flex justify-between z-10">
-        <span className="font-mono text-[9px] text-champagne/30 tracking-widest">
-          {service.number}
-        </span>
+        <span className="font-sans text-[9px] text-lavender/30 tracking-widest">{service.number}</span>
         <motion.span
           animate={{ opacity: hovered ? 1 : 0.5 }}
-          className="font-mono text-[9px] tracking-widest uppercase px-3 py-1 border"
+          className="font-sans text-[9px] tracking-widest uppercase px-3 py-1 border backdrop-blur-sm"
           style={{ color: service.accent, borderColor: `${service.accent}40` }}
         >
           {service.tag}
@@ -70,7 +68,7 @@ const BentoCard = ({ service, delay, className }) => {
         <motion.h3
           animate={{ y: hovered ? -6 : 0 }}
           transition={{ duration: 0.4 }}
-          className="font-display text-2xl md:text-3xl font-light text-champagne leading-tight mb-2"
+          className="font-serif text-2xl md:text-3xl font-bold text-cream leading-tight mb-2"
         >
           {service.title}
         </motion.h3>
@@ -78,7 +76,7 @@ const BentoCard = ({ service, delay, className }) => {
         <motion.p
           animate={{ opacity: hovered ? 1 : 0, height: hovered ? "auto" : 0 }}
           transition={{ duration: 0.4 }}
-          className="font-body text-sm text-champagne/60 leading-relaxed mb-4 overflow-hidden"
+          className="font-sans text-sm text-lavender/70 leading-relaxed mb-4 overflow-hidden"
         >
           {service.description}
         </motion.p>
@@ -86,7 +84,7 @@ const BentoCard = ({ service, delay, className }) => {
         <motion.div
           animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase"
+          className="flex items-center gap-2 font-sans text-[10px] tracking-widest uppercase"
           style={{ color: service.accent }}
         >
           Explore Ritual
@@ -99,7 +97,7 @@ const BentoCard = ({ service, delay, className }) => {
         </motion.div>
       </div>
 
-      {/* Corner decoration */}
+      {/* Corner arrow */}
       <motion.div
         animate={{ opacity: hovered ? 1 : 0 }}
         className="absolute bottom-5 right-5 z-10"
@@ -120,7 +118,7 @@ const Services = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="services" className="py-40 px-8 md:px-20 bg-pine overflow-hidden">
+    <section className="py-40 px-8 md:px-20 bg-lavender/20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -131,8 +129,8 @@ const Services = () => {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               className="flex items-center gap-4 mb-8"
             >
-              <div className="w-12 h-px bg-gold/30" />
-              <p className="font-mono text-[10px] text-gold/40 tracking-[0.5em] uppercase">The Rituals</p>
+              <div className="w-12 h-px bg-plum/40" />
+              <p className="font-sans text-[10px] text-plum/50 tracking-[0.5em] uppercase">What We Offer</p>
             </motion.div>
 
             {"Your Path to".split(" ").map((word, i) => (
@@ -141,7 +139,7 @@ const Services = () => {
                   initial={{ y: "105%" }}
                   animate={isInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
-                  className="font-display text-5xl md:text-7xl font-light inline-block text-champagne"
+                  className="font-serif text-5xl md:text-7xl font-bold inline-block text-deepplum"
                 >
                   {word}
                 </motion.span>
@@ -153,7 +151,7 @@ const Services = () => {
                 initial={{ y: "105%" }}
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
-                className="font-display text-5xl md:text-7xl font-light italic text-gold inline-block"
+                className="font-serif text-5xl md:text-7xl font-bold italic text-plum inline-block"
               >
                 Radiance
               </motion.span>
@@ -164,33 +162,20 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.5 }}
-            className="font-body text-sm text-champagne/25 max-w-xs leading-relaxed font-light"
+            className="font-sans text-sm text-deepplum/40 max-w-xs leading-relaxed font-light"
           >
-            Four sacred pillars of wellness, rooted in botanical tradition and elevated for modern living.
+            Four pillars of wellness, each crafted to elevate your everyday experience.
           </motion.p>
         </div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-          {/* Large card — left */}
-          <BentoCard
-            service={services[0]}
-            delay={0.1}
-            className="md:col-span-7 h-[520px]"
-          />
-
-          {/* Right column stacked */}
+          <BentoCard service={services[0]} delay={0.1} className="md:col-span-7 h-[520px]" />
           <div className="md:col-span-5 grid grid-rows-2 gap-3 h-[520px]">
             <BentoCard service={services[1]} delay={0.2} className="h-full" />
             <BentoCard service={services[2]} delay={0.3} className="h-full" />
           </div>
-
-          {/* Wide bottom card */}
-          <BentoCard
-            service={services[3]}
-            delay={0.4}
-            className="md:col-span-12 h-72"
-          />
+          <BentoCard service={services[3]} delay={0.4} className="md:col-span-12 h-72" />
         </div>
 
         {/* CTA */}
@@ -201,11 +186,11 @@ const Services = () => {
           className="flex justify-center mt-14"
         >
           <motion.button
-            whileHover={{ scale: 1.04, backgroundColor: "#C9A84C", color: "#0D1F0F" }}
+            whileHover={{ scale: 1.04, backgroundColor: "#6B3FA0", color: "#FDF6F0" }}
             whileTap={{ scale: 0.96 }}
-            className="border border-gold/25 text-champagne/50 font-mono text-[10px] tracking-[0.4em] uppercase px-12 py-4 hover:border-gold transition-all duration-400"
+            className="border border-plum/30 text-deepplum/60 font-sans text-[10px] tracking-[0.4em] uppercase px-12 py-4 hover:border-plum transition-all duration-300"
           >
-            View All Rituals →
+            View All Programs →
           </motion.button>
         </motion.div>
       </div>

@@ -20,7 +20,6 @@ const Cursor = () => {
     };
     const grow = () => scale.set(2.5);
     const shrink = () => scale.set(1);
-
     window.addEventListener("mousemove", move);
     document.querySelectorAll("a, button").forEach((el) => {
       el.addEventListener("mouseenter", grow);

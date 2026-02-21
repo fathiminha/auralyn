@@ -25,17 +25,17 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="overflow-x-hidden bg-forest"
+            className="overflow-x-hidden"
           >
             <Navbar />
-            <Hero />
+            <div id="home"><Hero /></div>
             <Marquee />
-            <Intro />
+            <div id="about"><Intro /></div>
             <Marquee reverse dark />
-            <Services />
+            <div id="services"><Services /></div>
             <Marquee />
-            <Journal />
-            <Contact />
+            <div id="journal"><Journal /></div>
+            <div id="contact"><Contact /></div>
             <Footer />
           </motion.main>
         )}

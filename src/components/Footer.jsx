@@ -10,18 +10,19 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-cream border-t border-lavender/20 py-12 px-8 md:px-20">
+    <footer className="bg-deepplum border-t border-lavender/10 py-12 px-8 md:px-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+
         <motion.p
-          whileHover={{ letterSpacing: "0.4em", color: "#6B3FA0" }}
+          whileHover={{ letterSpacing: "0.4em", color: "#C9808A" }}
           transition={{ duration: 0.5 }}
-          className="font-display text-2xl font-light text-deepplum/50 tracking-[0.2em] uppercase cursor-pointer transition-colors duration-500"
+          className="font-serif text-2xl font-bold text-lavender/70 tracking-wide cursor-pointer transition-colors duration-500"
         >
           Auralyn
         </motion.p>
 
-        <p className="font-mono text-[9px] text-deepplum/15 tracking-[0.4em] uppercase">
-          © 2025 Auralyn. All rights reserved.
+        <p className="font-sans text-[9px] text-lavender/30 tracking-[0.4em] uppercase">
+          © 2025 Auralyn. All rights reserved. Live in Your Aura. ✦
         </p>
 
         <div className="flex gap-6">
@@ -29,8 +30,8 @@ const Footer = () => {
             <motion.a
               key={social.label}
               href={social.href}
-              whileHover={{ y: -4, color: "#6B3FA0" }}
-              className="text-deepplum/15 text-lg transition-colors duration-300"
+              whileHover={{ y: -4, color: "#C9808A" }}
+              className="text-lavender/40 text-lg transition-colors duration-300"
             >
               {social.icon}
             </motion.a>

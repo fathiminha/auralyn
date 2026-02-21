@@ -3,7 +3,7 @@ import { Link } from "react-scroll";
 import { useRef, useEffect, useState } from "react";
 import heroBg from "../assets/images/hero.jpg";
 
-const words = ["Radiance", "Balance", "Serenity", "Harmony", "Glow"];
+const words = ["Radiance", "Balance", "Wellness", "Harmony", "Serenity"];
 
 const Hero = () => {
   const ref = useRef(null);
@@ -20,7 +20,6 @@ const Hero = () => {
 
   return (
     <section
-      id="home"
       ref={ref}
       className="relative min-h-screen flex items-end justify-start overflow-hidden pb-24 px-8 md:px-20"
     >
@@ -31,7 +30,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-deepplum/90 via-deepplum/40 to-transparent" />
       </motion.div>
 
-      {/* Decorative line */}
+      {/* Decorative vertical line */}
       <motion.div
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
@@ -66,7 +65,7 @@ const Hero = () => {
           transition={{ repeat: Infinity, duration: 2 }}
           className="w-px bg-lavender/30"
         />
-        <p className="font-mono text-[9px] text-lavender/40 tracking-[0.5em] uppercase">Scroll</p>
+        <p className="font-sans text-[9px] text-lavender/40 tracking-[0.5em] uppercase">Scroll</p>
         <motion.div
           animate={{ height: [40, 20, 40] }}
           transition={{ repeat: Infinity, duration: 2 }}
@@ -74,7 +73,7 @@ const Hero = () => {
         />
       </motion.div>
 
-      {/* Main Content */}
+      {/* Main content */}
       <motion.div style={{ y: textY, opacity }} className="relative z-20 max-w-6xl w-full">
 
         {/* Label */}
@@ -90,18 +89,18 @@ const Hero = () => {
             transition={{ delay: 4, duration: 0.8 }}
             className="w-12 h-px bg-rose/50 origin-left"
           />
-          <p className="font-mono text-[10px] text-lavender/50 tracking-[0.5em] uppercase">
+          <p className="font-sans text-[10px] text-lavender/50 tracking-[0.5em] uppercase">
             Premium Wellness — Est. 2025
           </p>
         </motion.div>
 
-        {/* Giant Title */}
+        {/* Giant title */}
         <div className="overflow-hidden mb-0">
           <motion.h1
             initial={{ y: "105%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1.3, delay: 3.9, ease: [0.76, 0, 0.24, 1] }}
-            className="font-display font-light text-cream leading-none"
+            className="font-serif font-bold text-cream leading-none"
             style={{ fontSize: "clamp(5rem, 17vw, 18rem)", letterSpacing: "-0.02em" }}
           >
             Aura
@@ -113,7 +112,7 @@ const Hero = () => {
               initial={{ y: "105%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1.3, delay: 4.05, ease: [0.76, 0, 0.24, 1] }}
-              className="font-display font-light text-cream leading-none"
+              className="font-serif font-bold text-cream leading-none"
               style={{ fontSize: "clamp(5rem, 17vw, 18rem)", letterSpacing: "-0.02em" }}
             >
               lyn
@@ -127,7 +126,7 @@ const Hero = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -80, opacity: 0 }}
                 transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-                className="font-display italic font-light text-rose block"
+                className="font-serif italic font-bold text-rose block"
                 style={{ fontSize: "clamp(1.5rem, 3.5vw, 3.5rem)" }}
               >
                 {words[currentWord]}
@@ -142,9 +141,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.4, duration: 0.9 }}
-            className="font-body font-light text-lavender/50 text-sm max-w-xs leading-relaxed"
+            className="font-sans font-light text-lavender/50 text-sm max-w-xs leading-relaxed"
           >
-            Where ancient botanical wisdom meets modern mindfulness. Your inner glow awaits.
+            Where mindfulness meets movement. Discover your inner glow.
           </motion.p>
 
           <motion.div
@@ -153,11 +152,11 @@ const Hero = () => {
             transition={{ delay: 4.6, duration: 0.9 }}
             className="flex items-center gap-6"
           >
-            <Link to="services" smooth={true} duration={1000} offset={-80}>
+            <Link to="services" smooth spy duration={1000} offset={-80}>
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="group relative border border-lavender/40 text-cream font-body text-[11px] tracking-[0.3em] uppercase px-8 py-4 overflow-hidden"
+                className="group relative border border-lavender/40 text-cream font-sans text-xs tracking-widest uppercase px-8 py-4 overflow-hidden"
               >
                 <motion.div
                   className="absolute inset-0 bg-plum"
@@ -171,10 +170,10 @@ const Hero = () => {
               </motion.button>
             </Link>
 
-            <Link to="about" smooth={true} duration={1000} offset={-80}>
+            <Link to="about" smooth spy duration={1000} offset={-80}>
               <motion.button
-                whileHover={{ x: 8, color: "#C9808A" }}
-                className="font-body text-[11px] tracking-[0.3em] uppercase text-lavender/30 transition-colors duration-300 flex items-center gap-3"
+                whileHover={{ x: 8 }}
+                className="font-sans text-xs tracking-widest uppercase text-lavender/30 hover:text-rose transition-colors duration-300 flex items-center gap-3"
               >
                 Discover
                 <motion.span
@@ -202,8 +201,8 @@ const Hero = () => {
           { number: "98%", label: "Satisfaction" },
         ].map((stat, i) => (
           <motion.div key={i} whileHover={{ x: -6 }} className="text-right cursor-default">
-            <p className="font-display text-2xl font-light text-lavender">{stat.number}</p>
-            <p className="font-mono text-[9px] text-cream/25 tracking-widest uppercase mt-0.5">{stat.label}</p>
+            <p className="font-serif text-2xl font-bold text-lavender">{stat.number}</p>
+            <p className="font-sans text-[9px] text-cream/25 tracking-widest uppercase mt-0.5">{stat.label}</p>
           </motion.div>
         ))}
       </motion.div>

@@ -12,7 +12,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["Home", "About", "Services", "Journal", "Contact"];
+  const navLinks = [
+    { label: "Home", to: "home" },
+    { label: "About", to: "about" },
+    { label: "Services", to: "services" },
+    { label: "Journal", to: "journal" },
+    { label: "Contact", to: "contact" },
+  ];
 
   return (
     <>
@@ -27,55 +33,65 @@ const Navbar = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-8 flex justify-between items-center">
-          <motion.div
-            whileHover={{ letterSpacing: "0.25em" }}
-            transition={{ duration: 0.5 }}
-            className={`font-display text-2xl font-light cursor-pointer tracking-[0.15em] uppercase ${
-              scrolled ? "text-deepplum" : "text-cream"
-            }`}
-          >
-            Auralyn
-          </motion.div>
 
+          {/* Logo */}
+          <Link to="home" smooth spy duration={1000}>
+            <motion.div
+              whileHover={{ letterSpacing: "0.25em" }}
+              transition={{ duration: 0.5 }}
+              className={`font-serif text-2xl font-bold cursor-pointer tracking-wide ${
+                scrolled ? "text-deepplum" : "text-cream"
+              }`}
+            >
+              Auralyn
+            </motion.div>
+          </Link>
+
+          {/* Desktop Links */}
           <ul className="hidden md:flex gap-10">
             {navLinks.map((link, i) => (
               <motion.li
-                key={link}
+                key={link.label}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 3.6 + i * 0.08 }}
               >
                 <Link
-                  to={link.toLowerCase()}
+                  to={link.to}
                   smooth={true}
+                  spy={true}
                   duration={1000}
                   offset={-80}
-                  className={`font-body text-[11px] tracking-[0.35em] uppercase cursor-pointer hover:text-plum transition-colors duration-300 relative group ${
+                  className={`font-sans text-xs tracking-widest uppercase cursor-pointer hover:text-plum transition-colors duration-300 relative group ${
                     scrolled ? "text-deepplum/50" : "text-cream/60"
                   }`}
                 >
-                  {link}
+                  {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-plum transition-all duration-500 group-hover:w-full" />
                 </Link>
               </motion.li>
             ))}
           </ul>
 
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 4 }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={`hidden md:block font-body text-[11px] tracking-[0.3em] uppercase px-6 py-3 border transition-all duration-300 ${
-              scrolled
-                ? "border-plum/40 text-plum hover:bg-plum hover:text-cream"
-                : "border-cream/30 text-cream hover:bg-cream/10"
-            }`}
-          >
-            Begin Journey
-          </motion.button>
+          {/* CTA Button */}
+          <Link to="contact" smooth spy duration={1000} offset={-80}>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 4 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className={`hidden md:block font-sans text-xs tracking-widest uppercase px-6 py-3 border transition-all duration-300 ${
+                scrolled
+                  ? "border-plum/40 text-plum hover:bg-plum hover:text-cream"
+                  : "border-cream/30 text-cream hover:bg-cream/10"
+              }`}
+            >
+              Begin Journey
+            </motion.button>
+          </Link>
 
+          {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex flex-col gap-1.5 cursor-pointer md:hidden"
@@ -95,6 +111,7 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
+      {/* Mobile Full Screen Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -106,20 +123,21 @@ const Navbar = () => {
           >
             {navLinks.map((link, i) => (
               <motion.div
-                key={link}
+                key={link.label}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.08 }}
               >
                 <Link
-                  to={link.toLowerCase()}
+                  to={link.to}
                   smooth={true}
+                  spy={true}
                   duration={1000}
                   offset={-80}
                   onClick={() => setMenuOpen(false)}
-                  className="font-display text-6xl font-light text-cream cursor-pointer hover:text-lavender transition-colors duration-300 tracking-widest italic"
+                  className="font-serif text-6xl font-bold text-cream cursor-pointer hover:text-lavender transition-colors duration-300"
                 >
-                  {link}
+                  {link.label}
                 </Link>
               </motion.div>
             ))}
@@ -127,7 +145,7 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.2 }}
               transition={{ delay: 0.6 }}
-              className="absolute bottom-10 font-mono text-xs text-cream tracking-widest"
+              className="absolute bottom-10 font-sans text-xs text-cream tracking-widest"
             >
               Discover Your Glow — Est. 2025
             </motion.p>

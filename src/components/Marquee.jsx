@@ -9,9 +9,7 @@ const items = [
 const Marquee = ({ reverse = false, dark = false }) => {
   return (
     <div className={`py-4 overflow-hidden flex border-y ${
-      dark
-        ? "bg-lavender/10 border-lavender/15"
-        : "bg-plum/90 border-plum"
+      dark ? "bg-lavender/10 border-lavender/20" : "bg-plum border-plum/80"
     }`}>
       {[0, 1].map((n) => (
         <motion.div
@@ -23,7 +21,7 @@ const Marquee = ({ reverse = false, dark = false }) => {
           {[...items, ...items].map((item, i) => (
             <span
               key={i}
-              className={`font-mono text-[10px] tracking-[0.5em] uppercase ${
+              className={`font-sans text-[10px] tracking-[0.5em] uppercase ${
                 dark ? "text-plum/40" : "text-lavender/60"
               }`}
             >
