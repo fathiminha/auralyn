@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import aboutImg from "../assets/images/about.jpg";
 import about2Img from "../assets/images/about2.jpg";
@@ -12,8 +12,7 @@ const Counter = ({ target, suffix }) => {
     if (!isInView) return;
     let start = 0;
     const end = parseInt(target);
-    const duration = 2000;
-    const step = (end / duration) * 16;
+    const step = (end / 1800) * 16;
     const timer = setInterval(() => {
       start += step;
       if (start >= end) { setCount(end); clearInterval(timer); }
@@ -25,156 +24,153 @@ const Counter = ({ target, suffix }) => {
   return <span ref={ref}>{count}{suffix}</span>;
 };
 
-const stats = [
-  { target: "10", suffix: "K+", label: "Lives Transformed", icon: "💫" },
-  { target: "50", suffix: "+", label: "Wellness Programs", icon: "🌿" },
-  { target: "98", suffix: "%", label: "Satisfaction Rate", icon: "✨" },
-];
-
 const Intro = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-  };
+  const isInView = useInView(ref, { once: true, margin: "-150px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
 
   return (
-    <section id="about" className="py-32 bg-cream px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto" ref={ref}>
+    <section id="about" className="py-40 px-8 md:px-16 overflow-hidden bg-[#080510]">
+      <div className="max-w-7xl mx-auto" ref={ref}>
 
-        {/* Top Banner Image */}
+        {/* Section label */}
         <motion.div
-          initial={{ opacity: 0, y: 60, borderRadius: "50px" }}
-          animate={isInView ? { opacity: 1, y: 0, borderRadius: "24px" } : {}}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative w-full h-80 rounded-3xl overflow-hidden mb-20 shadow-2xl"
+          initial={{ opacity: 0, x: -30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="flex items-center gap-4 mb-20"
         >
-          <motion.img
-            src={aboutImg}
-            alt="Wellness"
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ scale: 1.2 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 1.5 }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-deepplum/80 via-deepplum/40 to-transparent" />
-          <div className="absolute inset-0 flex items-center px-12">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            >
-              <motion.p
-                variants={itemVariants}
-                className="text-white/70 text-sm tracking-widest uppercase mb-3"
-              >
-                Our Philosophy
-              </motion.p>
-              <motion.h2
-                variants={itemVariants}
-                className="font-serif text-3xl md:text-5xl text-white font-bold max-w-lg leading-tight"
-              >
-                Wellness is not a destination,{" "}
-                <span className="italic text-lavender">it's a way of life</span>
-              </motion.h2>
-            </motion.div>
-          </div>
+          <div className="w-12 h-px bg-white/20" />
+          <p className="text-white/30 text-xs tracking-[0.5em] uppercase">About Auralyn</p>
         </motion.div>
 
-        {/* Description Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20 items-center">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            <motion.p
-              variants={itemVariants}
-              className="text-rose font-medium tracking-widest uppercase text-sm mb-4"
-            >
-              Who We Are
-            </motion.p>
-            <motion.h3
-              variants={itemVariants}
-              className="font-serif text-4xl text-deepplum font-bold mb-6 leading-tight"
-            >
-              Your journey to{" "}
-              <span className="text-plum italic">radiance</span> starts here
-            </motion.h3>
-            <motion.p
-              variants={itemVariants}
-              className="text-gray-500 text-lg leading-relaxed mb-6"
-            >
-              Auralyn is a premium wellness platform that blends mindfulness,
-              movement, and nourishment into one seamless experience. We believe
-              every person carries an inner glow — we just help you find it.
-            </motion.p>
-            <motion.div
-              variants={itemVariants}
-              className="flex items-center gap-3"
-            >
-              <div className="w-10 h-px bg-plum" />
-              <p className="text-plum text-sm font-medium tracking-wider">
-                Trusted by 10,000+ wellness seekers
-              </p>
-            </motion.div>
-          </motion.div>
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
 
-          <motion.div
-            initial={{ opacity: 0, x: 80, rotate: 2 }}
-            animate={isInView ? { opacity: 1, x: 0, rotate: 0 } : {}}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="relative h-72 rounded-3xl overflow-hidden shadow-2xl"
-          >
-            <img
-              src={about2Img}
-              alt="Meditation"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-plum/20" />
+          {/* Left - Text */}
+          <div>
+            <div className="overflow-hidden mb-4">
+              <motion.p
+                initial={{ y: "100%" }}
+                animate={isInView ? { y: 0 } : {}}
+                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                className="text-white/30 text-xs tracking-[0.5em] uppercase mb-6"
+              >
+                Who We Are
+              </motion.p>
+            </div>
+
+            {"Wellness is not a destination,".split(" ").map((word, i) => (
+              <div key={i} className="overflow-hidden inline-block mr-4">
+                <motion.span
+                  initial={{ y: "100%" }}
+                  animate={isInView ? { y: 0 } : {}}
+                  transition={{ duration: 0.9, delay: i * 0.06, ease: [0.76, 0, 0.24, 1] }}
+                  className="font-serif text-4xl md:text-6xl text-white font-bold inline-block leading-tight"
+                >
+                  {word}
+                </motion.span>
+              </div>
+            ))}
+            <div className="overflow-hidden inline-block mr-4">
+              <motion.span
+                initial={{ y: "100%" }}
+                animate={isInView ? { y: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                className="font-serif text-4xl md:text-6xl text-plum italic font-bold inline-block leading-tight"
+              >
+                it's a journey.
+              </motion.span>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-white/40 text-base leading-relaxed mt-10 max-w-md font-light"
+            >
+              Auralyn blends mindfulness, movement, and nourishment into one seamless experience.
+              We believe every person carries an inner glow — we just help you find it.
+            </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.8 }}
-              className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-3"
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="mt-10"
             >
-              <p className="text-deepplum font-serif font-bold text-sm">
-                Est. 2025
-              </p>
-              <p className="text-gray-500 text-xs">Premium Wellness</p>
+              <Link to="services" smooth duration={1000} offset={-80}>
+                <motion.button
+                  whileHover={{ x: 10 }}
+                  className="text-white/60 text-xs tracking-widest uppercase flex items-center gap-3 hover:text-white transition-colors duration-300"
+                >
+                  <span>Explore Our Programs</span>
+                  <motion.span
+                    animate={{ x: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    →
+                  </motion.span>
+                </motion.button>
+              </Link>
             </motion.div>
-          </motion.div>
+          </div>
+
+          {/* Right - Images stacked */}
+          <div className="relative h-[500px]">
+            <motion.div
+              style={{ y: imgY }}
+              initial={{ opacity: 0, x: 80 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.3 }}
+              className="absolute top-0 right-0 w-3/4 h-72 overflow-hidden"
+            >
+              <img src={aboutImg} alt="About" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              <div className="absolute inset-0 bg-plum/20" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -40, y: 40 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.5 }}
+              className="absolute bottom-0 left-0 w-2/3 h-56 overflow-hidden border-4 border-[#080510]"
+            >
+              <img src={about2Img} alt="About 2" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              <div className="absolute inset-0 bg-rose/10" />
+            </motion.div>
+
+            {/* Floating badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.9, type: "spring" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#080510] border border-white/10 px-6 py-4 z-10"
+            >
+              <p className="font-serif text-2xl font-bold text-white">Est.</p>
+              <p className="font-serif text-4xl font-bold text-plum">2025</p>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Animated Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((stat, i) => (
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10">
+          {[
+            { target: "10", suffix: "K+", label: "Lives Transformed" },
+            { target: "50", suffix: "+", label: "Wellness Programs" },
+            { target: "98", suffix: "%", label: "Satisfaction Rate" },
+          ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 + i * 0.15 }}
-              whileHover={{ y: -10, boxShadow: "0 30px 60px rgba(107,63,160,0.2)" }}
-              className="bg-white rounded-3xl p-10 text-center shadow-sm border border-lavender/50 transition-all duration-300 group cursor-default"
+              transition={{ duration: 0.7, delay: 0.5 + i * 0.1 }}
+              className="py-12 px-8 border-b md:border-b-0 md:border-r border-white/10 last:border-0"
             >
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, delay: i * 0.5 }}
-                className="text-4xl mb-4"
-              >
-                {stat.icon}
-              </motion.div>
-              <p className="font-serif text-5xl font-bold text-plum mb-2">
+              <p className="font-serif text-6xl font-bold text-white mb-2">
                 <Counter target={stat.target} suffix={stat.suffix} />
               </p>
-              <p className="text-gray-500 font-light">{stat.label}</p>
+              <p className="text-white/30 text-xs tracking-widest uppercase">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -182,5 +178,8 @@ const Intro = () => {
     </section>
   );
 };
+
+// Need to import Link
+import { Link } from "react-scroll";
 
 export default Intro;
